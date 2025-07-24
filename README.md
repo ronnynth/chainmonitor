@@ -16,7 +16,6 @@ A comprehensive monitoring tool for blockchain nodes that supports EVM-compatibl
 - Ethereum Mainnet/Testnets
 - Polygon
 - Binance Smart Chain
-- Avalanche C-Chain
 - Arbitrum
 - Optimism
 - Any EVM-compatible chain with standard JSON-RPC interface
@@ -25,8 +24,6 @@ A comprehensive monitoring tool for blockchain nodes that supports EVM-compatibl
 - Cosmos Hub
 - Osmosis
 - Juno
-- Akash
-- Secret Network
 - Any Cosmos SDK-based chain with CometBFT consensus
 
 ### Ethereum Beacon Chain
@@ -48,7 +45,7 @@ The tool exports the following Prometheus metrics:
 - `blockchain_node_endpoint_response_time_histogram_milliseconds`: Histogram of response times
 
 ### Connection Metrics
-- `blockchain_node_rpc_connections_total`: Total number of RPC connection attempts
+- `blockchain_node_rpc_connections_count`: Total number of RPC connection attempts
 
 All metrics include labels for:
 - `chain_name`: Name of the blockchain
@@ -67,7 +64,7 @@ All metrics include labels for:
 
 ### Build from Source
 ```bash
-git clone <repository-url>
+git clone https://github.com/ronnynth/chainmonitor.git
 cd chainmonitor
 go mod download
 go build -o chainmonitor main.go
@@ -90,8 +87,7 @@ evm:
     http_url: "https://mainnet.infura.io/v3/YOUR_PROJECT_ID"
     ws_url: "wss://mainnet.infura.io/ws/v3/YOUR_PROJECT_ID"
     chain_name: "ethereum"
-    chain_id: "1"
-    node_version: ""
+    protocol_name: "ethereum
     check_second: 5
 
 # Cosmos-based chains
@@ -99,9 +95,8 @@ cometbft:
   - hostname: "cosmos-hub"
     http_url: "https://rpc.cosmos.network:443"
     chain_name: "cosmos"
-    chain_id: ""
+    protocol_name: "cosmos"
     ws_endpoint: "/websocket"
-    node_version: ""
     check_second: 5
 
 # Ethereum Beacon Chain
@@ -109,8 +104,7 @@ beacon:
   - hostname: "ethereum-beacon"
     http_url: "https://beacon-api-endpoint"
     chain_name: "ethereum"
-    chain_id: 1
-    node_version: ""
+    protocol_name: "ethereum"
     check_second: 15
 ```
 
@@ -213,6 +207,7 @@ A pre-configured Grafana dashboard is available in `grafana-dashboard.json`. Imp
 - Endpoint response times
 - Connection success rates
 - Historical trends
+
 
 ### Dashboard Features
 - **Overview Panel**: Summary of all monitored nodes
